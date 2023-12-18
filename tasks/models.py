@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from goalwise.models import TimeStampMixin
@@ -22,7 +23,7 @@ class Day(models.Model):
 
 class Task(TimeStampMixin):
     title = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)
     duration = models.DurationField(blank=True, null=True)
     start_time = models.TimeField(blank=True, null=True)

@@ -1,9 +1,9 @@
 def calculate_score(tasks, consistency, account_age, screen_time, task_retention):
     # Define weight factors for each criterion
     weight_tasks = 0.15
-    weight_consistency = 0.35
+    weight_consistency = 0.4
     weight_account_age = 0.2
-    weight_screen_time = 0.1
+    weight_screen_time = 0.05
     weight_task_retention = 0.2
 
     # Normalize each criterion to a scale from 0 to 1

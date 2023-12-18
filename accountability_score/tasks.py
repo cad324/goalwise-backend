@@ -10,7 +10,10 @@ def get_scores():
     try:
         user_metrics = UserMetrics.objects.all()
         for user_metric in user_metrics:
-            current_score = AccountabilityScore.objects.get(user=user_metric.user).score
+            try:
+                current_score = AccountabilityScore.objects.get(user=user_metric.user).score
+            except:
+                current_score = None
             new_score = calculate_score(user_metric.task_count, user_metric.consistency,
                                         user_metric.account_age, user_metric.screen_time,
                                         user_metric.task_retention)
