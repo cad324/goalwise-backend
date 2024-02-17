@@ -17,24 +17,24 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         if request.user.id != task_data["user"]:
             logger.error(f"[TaskViewSet] User ID mismatch. Request User ID: {request.user.id}, Task User ID: {task_data.get('user')}")
-            return Response({"detail": "You do not have permission to update this task."}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"message": "You do not have permission to update this task."}, status=status.HTTP_403_FORBIDDEN)
 
         if serializer.is_valid():
             serializer.save()
-            logger.info(f"[TaskViewSet] Task created\nData: {request.data} \nUser: {request.user.id}")
+            logger.info(f"[TaskViewSet] Task created\nData: {request.data}")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-        logger.error(f"[TaskViewSet] Could not create task\nData: {request.data} \nUser: {request.user.id}")
+        logger.error(f"[TaskViewSet] Could not create task\Response: {request.data}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk=None):
         try:
             task = self.get_object()
         except Task.DoesNotExist:
-            return Response({"detail": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
 
         if task.user != request.user:
-            return Response({"detail": "You do not have permission to update this task."}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"message": "You do not have permission to update this task."}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = TaskSerializer(task, data=request.data)
 
@@ -51,10 +51,10 @@ class TaskViewSet(viewsets.ModelViewSet):
         try:
             task = self.get_object()
         except Task.DoesNotExist:
-            return Response({"detail": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
 
         if task.user != request.user:
-            return Response({"detail": "You do not have permission to update this task."}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"message": "You do not have permission to update this task."}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = TaskSerializer(task, data=request.data, partial=True)
 
@@ -68,7 +68,7 @@ class TaskViewSet(viewsets.ModelViewSet):
             task = self.get_object()
         except Task.DoesNotExist:
             logger.error(f"[TaskViewSet] Task not found\nUser: {request.user.id}")
-            return Response({"detail": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Task not found."}, status=status.HTTP_404_NOT_FOUND)
 
         if task.user == request.user:
             task.delete()
@@ -76,7 +76,7 @@ class TaskViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             logger.error(logger.info(f"[TaskViewSet] Task could not be deleted\nUser: {request.user.id}"))
-            return Response({"detail": "You do not have permission to delete this task."}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"message": "You do not have permission to delete this task."}, status=status.HTTP_403_FORBIDDEN)
         
 class DayViewSet(viewsets.ModelViewSet):
 

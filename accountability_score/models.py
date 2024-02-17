@@ -10,7 +10,7 @@ class AccountabilityScore(TimeStampMixin):
     prev_score = models.IntegerField(default=500, validators=[MinValueValidator(300), MaxValueValidator(850)])
 
     def __str__(self):
-        return f'{self.user.username} | Score: {self.score}'
+        return f'{self.user.last_name.upper()}, {self.user.first_name}  | Score: {self.score}'
     
 class DailyScoreLog(TimeStampMixin):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -18,7 +18,7 @@ class DailyScoreLog(TimeStampMixin):
     date = models.DateField(blank=False, auto_now=True)
 
     def __str__(self):
-        return f'{self.user.username} | {self.date} | {self.score}'
+        return f'{self.user.last_name.upper()}, {self.user.first_name}  | {self.date} | {self.score}'
     
 
 class UserMetrics(TimeStampMixin):
@@ -30,7 +30,7 @@ class UserMetrics(TimeStampMixin):
     task_retention = models.FloatField(default=0.95, validators=[MinValueValidator(0), MaxValueValidator(1)])
 
     def __str__(self):
-        return f'{self.user.username} - Metrics'
+        return f'{self.user.last_name.upper()}, {self.user.first_name}  - Metrics'
 
     class Meta:
         verbose_name = 'User Metrics'

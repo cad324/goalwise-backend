@@ -7,4 +7,5 @@ router.register(r'users', CustomUserViewSet, basename='user')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('api/user-id/', CustomUserViewSet.as_view({'get': 'get_requested_user_id'}), name='get_requested_user_id')
 ]
