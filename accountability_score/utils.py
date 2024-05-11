@@ -15,11 +15,11 @@ def calculate_score(tasks, consistency, account_age, screen_time, task_retention
 
     # Calculate the weighted score
     score = (
-        weight_tasks * normalized_tasks +
-        weight_consistency * normalized_consistency +
-        weight_account_age * normalized_account_age +
-        weight_screen_time * normalized_screen_time +
-        weight_task_retention * normalized_task_retention
+        weight_tasks * normalized_tasks
+        + weight_consistency * normalized_consistency
+        + weight_account_age * normalized_account_age
+        + weight_screen_time * normalized_screen_time
+        + weight_task_retention * normalized_task_retention
     )
 
     # Scale the score to the range from 300 to 850
