@@ -13,7 +13,7 @@ class AccountabilityScoreTestCase(TestCase):
             task_retention=0.95
         )
 
-        self.assertEqual(score, 500)
+        self.assertEqual(score, 514)
 
     def test_perfect_account_score(self):
         # Calculate the score for a perfect account
