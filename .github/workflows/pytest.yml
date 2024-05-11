@@ -13,6 +13,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    env:
+      ENVIRONMENT: development
+      JWT_SECRET_KEY: sk-cxLLeJaV94A2kDGJNyD3X0Auj4aypOq8
+      LOCAL_HOST: http://192.168.2.14:8081
+      ALLOWED_HOSTS: 10.0.2.2,127.0.0.1,localhost
+      ALLOWED_ORIGINS: http://192.168.2.14:8081
+      DJANGO_SECRET_KEY: gw-sandbox-9OJ8Jfa0OzRHxyfnhSJOpoXV1iXdirdq
+      CELERY_BROKER_URL: redis://localhost:6379
+      CELERY_RESULT_BACKEND: redis://localhost:6379
     
     strategy:
       matrix:
